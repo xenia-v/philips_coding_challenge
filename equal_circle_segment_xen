@@ -7,7 +7,6 @@ import re
 import sys
 
 
-
 #
 # Complete the 'largestSegment' function below.
 #
@@ -17,41 +16,39 @@ import sys
 #  2. INTEGER segments
 #
 
-def splitCircle(area, segments):
-    return area / segments
-
 def largestSegment(radius, segments):
     # Write your code here
     pi = 3.14159265359
 
-    #Sort and reverse radius
+    #Sort radius
     radius.sort()
-    radius.reverse()
 
-    #Calculate areas and the total squared units
+    #Calculate areas
     areas = []
-    areas_total = 0
     for i in radius:
         area = pi * i ** 2
         areas.append(area)
-        areas_total += area
 
-    largest_area = max(areas)
+    #Start binary search
+    area_min = 0
+    area_max = max(areas)
 
-    j = 1
-    for i in range(len(areas)):
-    while  j <= 6:
-        current_segmant = splitCircle(areas[i],j)
+    while round(area_min, 4) < round(area_max, 4):
+        print (area_min)
+        print (area_max)
+        new_node = (area_min + area_max) / 2
+        print (new_node)
 
-        j += 1
+        #Check if new_node fits area
+        counter = 0
+        for i in areas:
+            counter += i // new_node
+            if counter >= segments:
+                area_min = new_node
+        if area_min != new_node:  
+            area_max = new_node
 
-    print(largest_area)
-
-    #Work on segments
-    equal_segments = areas_total / segments
-    print (equal_segments)
-
-    return (str(round(largest_area, 4)))
+    return str(round(new_node, 4))
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
