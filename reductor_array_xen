@@ -1,0 +1,60 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+#
+# Complete the 'comparatorValue' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY a
+#  2. INTEGER_ARRAY b
+#  3. INTEGER d
+#
+
+def comparatorValue(a, b, d):
+    # Write your code here
+    
+    comparator_value = 0
+    exists = False
+    for i in range(len(a)):
+        for y in range(len(b)):
+            if abs(a[i] - b[y]) <= d:
+               exists = True
+        if exists == False:
+             comparator_value += 1
+        else:
+            exists = False
+
+    return comparator_value
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    a_count = int(input().strip())
+
+    a = []
+
+    for _ in range(a_count):
+        a_item = int(input().strip())
+        a.append(a_item)
+
+    b_count = int(input().strip())
+
+    b = []
+
+    for _ in range(b_count):
+        b_item = int(input().strip())
+        b.append(b_item)
+
+    d = int(input().strip())
+
+    result = comparatorValue(a, b, d)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
