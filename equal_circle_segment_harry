@@ -1,0 +1,54 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+#
+# Complete the 'largestSegment' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY radius
+#  2. INTEGER segments
+#
+
+def largestSegment(radius, segments):
+    # Write your code here
+    pi = 3.14159265359
+
+    #Sort and reverse radius
+    radius.sort()
+    radius.reverse()
+
+    #Calculate areas and the total squared units
+    areas = []
+    areas_total = 0
+    for i in radius:
+        area = pi * i ** 2
+        areas.append(area)
+
+    return str(binarySearch(areas, 0, max(areas)))
+
+def binarySearch(array, minVal, maxVal):
+    
+    new_value = (minVal + maxVal) / 2
+
+    counter = 0
+    for i in array:
+        counter += i // new_value
+
+    if (round(new_value, 4) == round(minVal, 4)) or (round(new_value, 4) == round(maxVal, 4)):
+        return round(new_value, 4)
+    
+    elif counter >= segments:
+        return binarySearch(array, new_value, maxVal)
+    else:
+        return binarySearch(array, minVal, new_value)
+    
+
+if __name__ == '__main__':
